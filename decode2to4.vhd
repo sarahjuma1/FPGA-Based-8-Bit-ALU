@@ -1,0 +1,32 @@
+LIBRARY ieee ;
+USE ieee.std_logic_1164.all ;
+
+ENTITY decode2to4 IS
+
+	PORT (w0, w1 : IN STD_LOGIC;
+			En : IN STD_LOGIC;
+			y0, y1, y2, y3  : OUT STD_LOGIC);
+END decode2to4;
+
+ARCHITECTURE Behavior OF decode2to4 IS
+	SIGNAL Enw : STD_LOGIC_VECTOR(2 DOWNTO 0);
+
+BEGIN 
+	Enw <= En & w0 & w1 ;
+	
+	PROCESS(Enw)
+	BEGIN
+		CASE Enw IS
+			WHEN "100" =>
+				y0 <= '1'; y1<= '0'; y2 <= '0'; y3 <='0';
+			WHEN "101" =>
+				y0 <= '0'; y1<= '0'; y2 <= '1'; y3 <='0';
+			WHEN "110" =>
+				y0 <= '0'; y1<= '1'; y2 <= '0'; y3 <='0';	
+			WHEN "111" =>
+				y0 <= '0'; y1<= '0'; y2 <= '0'; y3 <='1';
+			WHEN OTHERS =>
+				y0 <= '0'; y1<= '0'; y2 <= '0'; y3 <='0';
+		END CASE;
+	END PROCESS;		
+END Behavior;
